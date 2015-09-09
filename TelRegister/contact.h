@@ -1,6 +1,9 @@
 #pragma once
+#include <algorithm>
 #include <iostream>
 #include <string>
+
+#define ToLower(x) std::transform(x.begin(), x.end(), x.begin(), ::tolower)
 
 // struct defualt public
 struct Contact

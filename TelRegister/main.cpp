@@ -2,26 +2,33 @@
 #include <algorithm>
 #include <string>
 #include "register.h"
+#include <map>
 
 int main()
 {
 	std::cout << "command HELP for more commands" << std::endl;
 
-	Register reg;
-	reg.Add("Simon", "0720065453");
-	reg.Add("Simon", "0720065453");
-	reg.Add("Simon", "0720065453");
+	std::map<std::string, Register*> mapReg;
+
+	mapReg["default"] = new Register();
+
+
+
+	mapReg["default"]->Add("Simon", "0720065453");
+	mapReg["default"]->Add("Simon", "0720065453");
+	mapReg["default"]->Add("Simon", "0720065453");
 
 	std::string input = "";
+	std::string reg = "";
 
 	while (true)
 	{
 		input = "";
 		std::cin >> input;
-		std::transform(input.begin(), input.end(), input.begin(), ::tolower);
+		ToLower(input);
 
 		if (input == "printall")
-			reg.PrintAll();
+			mapReg["default"]->PrintAll();
 		else if (input == "add")
 		{
 			std::string name = "";
@@ -30,8 +37,8 @@ int main()
 			std::cin >> name;
 			std::cout << "Number: " << std::endl;
 			std::cin >> number;
-
-			reg.Add(name, number);
+			system("cls");
+			mapReg["default"]->Add(name, number);
 		}
 		else if (input == "remove")
 		{
@@ -39,7 +46,7 @@ int main()
 			std::cout << "Name: " << std::endl;
 			std::cin >> name;
 
-			reg.Remove(name);
+			mapReg["default"]->Remove(name);
 		}
 		else if (input == "find")
 		{
@@ -49,11 +56,9 @@ int main()
 			std::cin >> name;
 			std::cout << "Number: " << std::endl;
 			std::cin >> number;
-
-			if (reg.Find(name, number) == nullptr)
+			system("cls");
+			if (mapReg["default"]->Find(name, number) == nullptr)
 				std::cout << "Could not find person!" << std::endl;
-			else
-				std::cout << reg.Find(name, number);
 		}
 		else if (input == "clear")
 		{
@@ -67,6 +72,21 @@ int main()
 			std::cout << "remove" << std::endl;
 			std::cout << "find" << std::endl;
 			std::cout << "clear" << std::endl;
+		}
+		else if (input == "addreg")
+		{
+			std::cout << "Enter name for new register" << std::endl;
+			std::string regname = "";
+			std::cin >> regname;
+			ToLower(regname);
+			std::cout << regname << std::endl;
+			if (mapReg[regname])
+				std::cout << "It already exists!" << std::endl;
+			else
+			{
+				mapReg[regname] = new Register();
+				reg = regname;
+			}
 		}
 		else
 			std::cout << "Command failed" << std::endl;
