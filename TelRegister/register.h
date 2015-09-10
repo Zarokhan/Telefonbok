@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include <algorithm>
+#include <iostream>
 #include "contact.h"
 
 #define DEFAULT_SIZE 2
@@ -15,6 +16,6 @@ public:
 	~Register();
 	void Add(const std::string& name, const std::string& number);
 	Contact* Find(const std::string& name, const std::string& number);
-	void Remove(const std::string& name);
+	void Remove(Contact* contact);
 	void PrintAll() const;
 };

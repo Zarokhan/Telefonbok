@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <iostream>
 #include "register.h"
 
 Register::Register() : count(0), size(DEFAULT_SIZE)
@@ -33,6 +31,7 @@ void Register::Add(const std::string& name, const std::string& number)
 
 		size = newSize;
 		contacts = newContacts;
+		std::cout << "Current memory usage: " << sizeof(Contact)*size << " bytes" << std::endl;
 	}
 
 	// Find empty slot
@@ -72,7 +71,7 @@ Contact* Register::Find(const std::string& name, const std::string& number)
 }
 
 // Removes contact by name
-void Register::Remove(const std::string& name)
+void Register::Remove(Contact* contact)
 {
 	if (count == 0)
 	{
@@ -80,24 +79,16 @@ void Register::Remove(const std::string& name)
 		return;
 	}
 
-	std::string temp1 = name;
-	ToLower(temp1);
-	std::string temp2 = "";
-
 	for (int i = 0; i < size; i++)
 	{
 		if (contacts[i] == nullptr)
 			continue;
 
-		temp2 = contacts[i]->name;
-		ToLower(temp2);
-
-		if (temp1 == temp2)
+		if (contacts[i] == contact)
 		{
 			delete contacts[i];
 			contacts[i] = nullptr;
 			count--;
-			return;
 		}
 	}
 }
@@ -115,5 +106,9 @@ void Register::PrintAll() const
 
 Register::~Register()
 {
-	delete[] contacts;
+	std::cout << "Register destroyed." << std::endl;
+	for (unsigned int i = 0; i < size; i++)
+	{
+		delete contacts[i];
+	}
 }

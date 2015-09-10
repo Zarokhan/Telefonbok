@@ -7,11 +7,6 @@ Contact::Contact(const std::string& name, const std::string& number) : name(name
 	std::cout << *this << " added" << std::endl;
 }
 
-Contact::Contact(Contact& contact) : name(contact.name), number(contact.number)
-{
-	std::cout << *this << " copied" << std::endl;
-}
-
 Contact::~Contact()
 {
 	std::cout << *this << " deleted" << std::endl;

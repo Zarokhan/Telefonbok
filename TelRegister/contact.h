@@ -13,7 +13,6 @@ struct Contact
 
 	Contact();
 	Contact(const std::string& name, const std::string& number);
-	Contact(Contact& contact);
 	~Contact();
 
 	friend std::ostream& operator << (std::ostream&, const Contact& contact);
