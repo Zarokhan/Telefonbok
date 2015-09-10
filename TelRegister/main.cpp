@@ -1,19 +1,14 @@
 #include <iostream>
-#include <algorithm>
-#include <string>
-#include "register.h"
 #include <map>
+#include "register.h"
 
 int main()
 {
-	std::cout << "command HELP for more commands" << std::endl;
+	std::cout << "Type 'help' for more commands." << std::endl;
 
 	std::map<std::string, Register*> mapReg;
 
 	mapReg["default"] = new Register();
-
-
-
 	mapReg["default"]->Add("Simon", "0720065453");
 	mapReg["default"]->Add("Simon", "0720065453");
 	mapReg["default"]->Add("Simon", "0720065453");
@@ -92,6 +87,5 @@ int main()
 			std::cout << "Command failed" << std::endl;
 	}
 
-	std::cin.get();
 	return 0;
 }

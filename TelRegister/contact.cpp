@@ -17,6 +17,7 @@ Contact::~Contact()
 	std::cout << *this << " deleted" << std::endl;
 }
 
+// << operator assignment
 std::ostream& operator << (std::ostream& os, const Contact& contact)
 {
 	return os << contact.name << " - " << contact.number;

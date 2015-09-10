@@ -1,21 +1,23 @@
-#include "register.h"
 #include <algorithm>
 #include <iostream>
+#include "register.h"
 
 Register::Register() : count(0), size(DEFAULT_SIZE)
 {
 	contacts = new Contact*[size];
 
-	// Assign all to null pointers
+	// Assign all contacts to null pointers
 	for (unsigned int i = 0; i < size; i++)
 		contacts[i] = nullptr;
 }
 
+// Adds a contact to the register
 void Register::Add(const std::string& name, const std::string& number)
 {
+	// Making array 
 	if (count == size)
 	{
-		std::cout << "Register full. ALLOCATING NEW MEMORY" << std::endl;
+		std::cout << "Register is full, ALLOCATING NEW MEMORY!" << std::endl;
 
 		unsigned int newSize = size * 2;
 		Contact** newContacts = new Contact*[newSize];
@@ -45,10 +47,11 @@ void Register::Add(const std::string& name, const std::string& number)
 	}
 }
 
+// Finds a contact by name or number
 Contact* Register::Find(const std::string& name, const std::string& number)
 {
 	std::string temp1 = name;
-	std::transform(temp1.begin(), temp1.end(), temp1.begin(), ::tolower);
+	ToLower(temp1);
 	std::string temp2 = "";
 
 	for (int i = 0; i < size; i++)
@@ -57,18 +60,18 @@ Contact* Register::Find(const std::string& name, const std::string& number)
 			continue;
 
 		temp2 = contacts[i]->name;
-		std::transform(temp2.begin(), temp2.end(), temp2.begin(), ::tolower);
+		ToLower(temp2);
 
 		if (temp1 == temp2 || contacts[i]->number == number)
 		{
 			std::cout << "Contact found: " << *contacts[i] << std::endl;
 			return contacts[i];
-			break;
 		}
 	}
 	return nullptr;
 }
 
+// Removes contact by name
 void Register::Remove(const std::string& name)
 {
 	if (count == 0)
@@ -99,6 +102,7 @@ void Register::Remove(const std::string& name)
 	}
 }
 
+// Prints all contacts in register
 void Register::PrintAll() const
 {
 	for (int i = 0; i < size; i++)
