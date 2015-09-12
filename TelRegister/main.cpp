@@ -38,6 +38,7 @@ int main()
 			std::cout << "delete\n\n-Register commands-" << std::endl;
 			std::cout << "setreg" << std::endl;
 			std::cout << "addreg" << std::endl;
+			std::cout << "printallregs" << std::endl;
 			std::cout << "deletereg\n\n-General commands-" << std::endl;
 			std::cout << "clear" << std::endl;
 			std::cout << "exit" << std::endl;
@@ -97,6 +98,11 @@ int main()
 			else
 				std::cout << "Could not find register: " << regname << std::endl;
 		}
+		else if (input == "printallregs")
+		{
+			for (auto iter = mapReg.cbegin(); iter != mapReg.cend(); ++iter)
+				std::cout << iter->first << std::endl;
+		}
 		else if (currentReg == "")
 		{
 			std::cout << "No current register. Please use command 'setreg'." << std::endl;
@@ -124,6 +130,8 @@ int main()
 
 			mapReg[currentReg]->Remove(mapReg[currentReg]->Find(name, ""));
 		}
+		else if (input == "credits")
+			std::cout << "Application created by Robin and Simon TGSPA14h" << std::endl;
 		else if (input == "find")
 		{
 			std::string name = "";
